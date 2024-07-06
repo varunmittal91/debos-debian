@@ -1,3 +1,5 @@
+# yaml-language-server: $schema=https://json.schemastore.org/yamllint.json
+
 architecture: amd64
 
 actions:
@@ -32,8 +34,20 @@ actions:
     file: "build/base-amd64.tar.gz"
     compression: gz
 
-  - action: apt
-    packages: [systemd-boot, bmap-tools, qemu-utils]
+  # - action: run
+  #   chroot: true
+  #   command: cp boot/vmlinuz-6.9.7-amd64 boot/vmlinuz && cp boot/initrd.img-6.9.7-amd64 boot/initrd.img && ls /boot -l
+
+  # - action: ostree-deploy
+  #   repository: build/ostree/ostree/repo
+  #   branch: debian/testing/amd64
+  #   setup-fstab: bool
+  #   os: debian
+  #   setup-kernel-cmdline: bool
+
+  - action: run
+    chroot: true
+    script: setup-user.sh
 
   - action: filesystem-deploy
     description: Deploying filesystem onto image
@@ -41,12 +55,6 @@ actions:
   - action: run
     chroot: true
     command: bootctl install
-
-  - action: apt
-    packages:
-      - grub-efi
-      - initramfs-tools
-      - linux-image-amd64
 
   - action: run
     chroot: true
