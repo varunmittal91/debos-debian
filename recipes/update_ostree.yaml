@@ -19,6 +19,19 @@ actions:
   # - action: run
   #   command: cd /scratch/root && ostree commit -b debian/testing/amd64 -s "Updated" --skip-if-unchanged --repo=$ARTIFACTDIR/build/ostree/ostree/repo -vvv
 
+  - action: run
+    chroot: true
+    command: cp boot/vmlinuz-6.9.7-amd64 boot/vmlinuz && cp boot/initrd.img-6.9.7-amd64 boot/initrd.img && ls /boot -l
+
+  - action: apt
+    recommends: true
+    packages:
+      - grub-efi
+
+  - action: run
+    chroot: true
+    script: kernel.sh
+
   - action: ostree-commit
     repository: build/ostree/ostree/repo
     branch: debian/testing/amd64
