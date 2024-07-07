@@ -11,6 +11,7 @@ declare -A TOPLEVEL_LINKS=(
     # ["ostree"]="$OSTREE_SYSROOT/ostree"
     # ["root"]="var/roothome"
     ["srv"]="var/srv"
+    ["etc"]="usr/etc"
 )
 
 for link in "${!TOPLEVEL_LINKS[@]}"; do
@@ -25,6 +26,8 @@ mv root var/roothome
 ln -sf var/roothome root
 
 ln -s sysroot/ostree ostree
+
+# mv etc usr/etc
 
 echo $(date --utc +%Y-%m-%dT%H:%M:%S%Z) >/timestamp
 

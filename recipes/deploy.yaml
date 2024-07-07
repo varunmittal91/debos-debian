@@ -34,16 +34,13 @@ actions:
     file: "build/base-amd64.tar.gz"
     compression: gz
 
-  - action: run
-    chroot: true
-    command: ls -lh /etc && ls -lh /usr/etc
-
   - action: ostree-deploy
+    description: Deploying ostree onto image
     repository: build/ostree/ostree/repo
     branch: debian/testing/amd64
-    setup-fstab: bool
+    setup-fstab: true
     os: debian
-    setup-kernel-cmdline: bool
+    setup-kernel-cmdline: true
 
   - action: apt
     recommends: true
@@ -53,13 +50,6 @@ actions:
   - action: run
     chroot: true
     script: setup-user.sh
-
-  - action: run
-    chroot: true
-    command: ostree admin os-init debian
-
-  - action: filesystem-deploy
-    description: Deploying filesystem onto image
 
   - action: run
     chroot: true
