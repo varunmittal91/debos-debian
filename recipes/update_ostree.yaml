@@ -10,23 +10,9 @@ actions:
     description: Package update
     command: apt-get update && apt-get dist-upgrade -y
 
-  - action: run
-    command: export
-
-  - action: run
-    command: ls /scratch/root && echo $ARTIFACTDIR/build/ostree/ostree/repo
-
   # - action: run
-  #   command: cd /scratch/root && ostree commit -b debian/testing/amd64 -s "Updated" --skip-if-unchanged --repo=$ARTIFACTDIR/build/ostree/ostree/repo -vvv
-
-  - action: run
-    chroot: true
-    command: cp boot/vmlinuz-6.9.7-amd64 boot/vmlinuz && cp boot/initrd.img-6.9.7-amd64 boot/initrd.img && ls /boot -l
-
-  - action: apt
-    recommends: true
-    packages:
-      - grub-efi
+  #   chroot: true
+  #   command: cp boot/vmlinuz-6.9.7-amd64 boot/vmlinuz && cp boot/initrd.img-6.9.7-amd64 boot/initrd.img && ls /boot -l
 
   - action: run
     chroot: true
@@ -36,18 +22,3 @@ actions:
     repository: build/ostree/ostree/repo
     branch: debian/testing/amd64
     subject: system-rebuild
-
-  # - action: filesystem-deploy
-  #   description: Deploying filesystem onto image
-
-  # - action: run
-  #   chroot: true
-  #   command: bootctl install
-
-  # - action: run
-  #   chroot: true
-  #   command: update-grub
-
-  # - action: run
-  #   chroot: true
-  #   command: grub-install --target=x86_64-efi --no-nvram

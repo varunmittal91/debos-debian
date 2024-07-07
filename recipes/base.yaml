@@ -29,6 +29,7 @@ actions:
       - systemd-boot
       - grub-efi
       - initramfs-tools
+      - ostree
 
   - action: run
     chroot: true

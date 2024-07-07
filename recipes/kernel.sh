@@ -27,7 +27,8 @@ ln -sf var/roothome root
 
 ln -s sysroot/ostree ostree
 
-# mv etc usr/etc
+# remove etc from sysroot
+rm -rf etc
 
 echo $(date --utc +%Y-%m-%dT%H:%M:%S%Z) >/timestamp
 

@@ -42,11 +42,6 @@ actions:
     os: debian
     setup-kernel-cmdline: true
 
-  - action: apt
-    recommends: true
-    packages:
-      - ostree
-
   - action: run
     chroot: true
     script: setup-user.sh
